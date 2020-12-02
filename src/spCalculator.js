@@ -1,12 +1,11 @@
 // Get numbers from tags
-iterationSelection({
-    },
+iterationSelection({},
     {
         'STICKER': stickerProcessor,
         'CARD': cardProcessor
-    }).then(function(calcResult) {
-    console.log('Result: ', calcResult)
-});
+    }, function (calcResult) {
+        console.log('Result: ', calcResult)
+    });
 
 // Get numbers from widget text
 iterationSelection({
@@ -15,9 +14,9 @@ iterationSelection({
     {
         'STICKER': stickerProcessor,
         'CARD': cardProcessor
-    }).then(function(calcResult) {
-    console.log('Result: ', calcResult)
-});
+    }, function (calcResult) {
+        console.log('Result: ', calcResult)
+    });
 
 // Get numbers from tags with tags white list
 iterationSelection({
@@ -26,9 +25,9 @@ iterationSelection({
     {
         'STICKER': stickerProcessor,
         'CARD': cardProcessor
-    }).then(function(calcResult) {
-    console.log('Result: ', calcResult)
-});
+    }, function (calcResult) {
+        console.log('Result: ', calcResult)
+    });
 
 // Get numbers from tags with regexp
 iterationSelection({
@@ -37,6 +36,6 @@ iterationSelection({
     {
         'STICKER': stickerProcessor,
         'CARD': cardProcessor
-    }).then(function(calcResult) {
-    console.log('Result: ', calcResult)
-});
+    }, function (calcResult) {
+        console.log('Result: ', calcResult)
+    });

@@ -54,73 +54,87 @@ function getNumbersFromTagsWithRegExp(widget, tags, settings) {
 }
 
 function calcWidgetCosts(widget, tags, settings, numbersParser) {
-    var result = {
-        amount: 0,
-        tags: []
-    };
-    var numberParserResult = numbersParser(widget, tags, settings);
     var hasNoWhiteList = defValue(settings.whiteList, null) === null;
-    for (var tagNo in tags) {
-        if (numberParserResult.tagUsed.indexOf(tagNo) === -1) {
-            var curTagTitle = tags[tagNo].title
-            var curTagResult = Number(curTagTitle);
-            if (isNaN(curTagResult)) {
-                if (hasNoWhiteList) {
-                    result.tags.push(curTagTitle);
-                } else {
-                    for (var word in settings.whiteList) {
-                        if (settings.whiteList[word].toLowerCase() === curTagTitle.toLowerCase()) {
-                            result.tags.push(curTagTitle);
-                            break;
+    return numbersParser.then(function (parser) {
+        return parser(widget, tags, settings);
+    }).then(function (numberParserResult) {
+        var result = {
+            amount: 0,
+            tags: []
+        };
+
+        for (var tagNo in tags) {
+            if (numberParserResult.tagUsed.indexOf(tagNo) === -1) {
+                var curTagTitle = tags[tagNo].title
+                var curTagResult = Number(curTagTitle);
+                if (isNaN(curTagResult)) {
+                    if (hasNoWhiteList) {
+                        result.tags.push(curTagTitle);
+                    } else {
+                        for (var word in settings.whiteList) {
+                            if (settings.whiteList[word].toLowerCase() === curTagTitle.toLowerCase()) {
+                                result.tags.push(curTagTitle);
+                                break;
+                            }
                         }
                     }
                 }
             }
         }
-    }
-    // Sort amounts (from bigger to smaller)
-    numberParserResult.amounts.sort(function (a, b) {
-        return b - a;
+
+        // Sort amounts (from bigger to smaller)
+        numberParserResult.amounts.sort(function (a, b) {
+            return b - a;
+        });
+        if (numberParserResult.amounts.length > 0) {
+            result.amount = numberParserResult.amounts[0];
+        }
+        return result;
     });
-    if (numberParserResult.amounts.length > 0) {
-        result.amount = numberParserResult.amounts[0];
-    }
-    return result;
 }
 
-function iterationSelection(settings, processors) {
+function iterationSelection(settings, widgetProcessors, resultProcessor) {
     var result = {
         totalResult: 0,
         groupedResult: {}
     };
 
     var selectionPromise = miro.board.selection.get();
-    return selectionPromise.then(function (foundWidgets) {
+    selectionPromise.then(function (foundWidgets) {
         var widgetCount = foundWidgets.length;
         var processResult = result;
+        var resultPromises = [];
         for (var widgetNo = 0; widgetNo < widgetCount; widgetNo++) {
             var currentWidget = foundWidgets[widgetNo];
-            var curWidgetProcessor = processors[currentWidget.type];
+            var curWidgetProcessor = widgetProcessors[currentWidget.type];
             if (typeof curWidgetProcessor !== 'undefined') {
                 var tags = currentWidget.tags;
-                processResult = curWidgetProcessor(currentWidget, tags, processResult, settings);
+                resultPromises.push(curWidgetProcessor(currentWidget, tags, processResult, settings));
             }
         }
-        return processResult;
+        Promise.all(resultPromises).then(function () {
+            resultProcessor(processResult);
+        });
     }, function () {
         console.log('Error');
-        return result;
     });
 }
 
 function getNumbersParser(settings) {
+    var parser = null;
     if (defValue(settings.calculatedFromText, false)) {
-        return getNumbersFromWidgetText;
+        parser = getNumbersFromWidgetText;
     } else if (defValue(settings.regExp, null) !== null) {
-        return getNumbersFromTagsWithRegExp;
+        parser = getNumbersFromTagsWithRegExp;
     } else {
-        return getNumbersFromTags;
+        parser = getNumbersFromTags;
     }
+    return new Promise(function (resolve, reject) {
+        if (parser !== null) {
+            return resolve(parser);
+        }
+        return reject("Error");
+    });
 }
 
 function groupValueProcessor(result, amount, settings, tagName, tagCount) {
@@ -131,22 +145,22 @@ function groupValueProcessor(result, amount, settings, tagName, tagCount) {
         tagAmount += (amount);
     }
     result.groupedResult[tagName] = tagAmount;
-    return result;
 }
 
 function stickerProcessor(widget, tags, result, settings) {
-    var widgetCost = calcWidgetCosts(widget, tags, settings, getNumbersParser(settings));
-    result.totalResult += widgetCost.amount;
-    var tagCount = widgetCost.tags.length;
-    if (tagCount > 0) {
-        for (var tagNo in widgetCost.tags) {
-            var tagName = widgetCost.tags[tagNo];
-            result = groupValueProcessor(result, widgetCost.amount, settings, tagName, tagCount);
-        }
-    } else {
-        result = groupValueProcessor(result, widgetCost.amount, settings, 'No group', 1);
-    }
-    return result;
+    return calcWidgetCosts(widget, tags, settings, getNumbersParser(settings))
+        .then(function (widgetCost) {
+            result.totalResult += widgetCost.amount;
+            var tagCount = widgetCost.tags.length;
+            if (tagCount > 0) {
+                for (var tagNo in widgetCost.tags) {
+                    var tagName = widgetCost.tags[tagNo];
+                    groupValueProcessor(result, widgetCost.amount, settings, tagName, tagCount);
+                }
+            } else {
+                groupValueProcessor(result, widgetCost.amount, settings, 'No group', 1);
+            }
+        });
 }
 
 function cardProcessor(widget, tags, result, settings) {

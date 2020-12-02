@@ -15,9 +15,9 @@ miro.onReady(() => {
                         {
                             'STICKER': stickerProcessor,
                             'CARD': cardProcessor
-                        }).then(function(calcResult) {
-                        console.log('Result: ', calcResult)
-                    });
+                        }, function (calcResult) {
+                            console.log('Result: ', calcResult)
+                        });
                 },
             },
         },
