@@ -116,7 +116,7 @@ function iterationSelection(settings, widgetProcessors, resultProcessor) {
             resultProcessor(processResult);
         });
     }, function () {
-        console.log('Error');
+        console.log('Errors:', arguments);
     });
 }
 
