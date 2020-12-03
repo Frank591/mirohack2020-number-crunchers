@@ -102,10 +102,10 @@ select {
     padding: 8px;
 }
 
-.stat-list__field label, .stat-list__field.input {
-    width: 50%;
+.stat-list__field label, .stat-list__field input {
+    width: calc(50% - 16px);
 }
 
-.stat-list__field.input[type="checkbox"] {
+.stat-list__field input[type="checkbox"] {
     width: initial;
 }
