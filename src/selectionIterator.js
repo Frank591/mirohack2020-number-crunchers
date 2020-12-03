@@ -101,7 +101,9 @@ function iterationSelection(settings, widgetProcessors, resultProcessor) {
     var result = {
         totalResult: 0,
         groupedResult: {},
-        processedWidgets: 0
+        processedWidgets: 0,
+        totalWidgets: 0,
+        unitOfMeasure: defValue(settings.unitOfMeasure, 'SP')
     };
 
     var selectionPromise = miro.board.selection.get();
@@ -110,6 +112,7 @@ function iterationSelection(settings, widgetProcessors, resultProcessor) {
         var processResult = result;
         var resultPromises = [];
         for (var widgetNo = 0; widgetNo < widgetCount; widgetNo++) {
+            processResult.totalWidgets++;
             var currentWidget = foundWidgets[widgetNo];
             var curWidgetProcessor = widgetProcessors[currentWidget.type];
             if (typeof curWidgetProcessor !== 'undefined') {
