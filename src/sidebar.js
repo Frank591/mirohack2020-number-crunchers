@@ -21,7 +21,10 @@ function showResults(results) {
 
 function clearResults() {
     const elements = getContainer().getElementsByClassName('stat-list__table')
-    for (let i = 0; i <= elements.length; i++) {
+    if (elements == null){
+        return;
+    }
+    for (let i = 0; i < elements.length; i++) {
         elements.item(i).remove()
     }
 }
