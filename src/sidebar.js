@@ -1,5 +1,5 @@
 async function calculateSelected(needDisplayOptions) {
-    spSettingsStorage.get().then(async function(settings) {
+    spSettingsStorage.get().then(async function (settings) {
         if (needDisplayOptions) {
             displayOptions(settings);
         }
@@ -58,12 +58,13 @@ function saveOptions() {
             default:
                 console.log('Unknown setting type ', valueType)
         }
-        if (newValue !== null && typeof newValue !== 'undefined') {
+        if (newValue !== null && typeof newValue !== 'undefined' && '' + newValue !== "") {
             newSettings[setting] = newValue;
         }
     }
-    spSettingsStorage.set(newSettings).then(function() {
+    spSettingsStorage.set(newSettings).then(function () {
         console.log('Settings were changed');
+        calculateSelected(false);
     });
 }
 
@@ -76,7 +77,7 @@ function showResults(results) {
 
 function clearResults() {
     const elements = getContainer().getElementsByClassName('stat-list__table')
-    if (elements == null){
+    if (elements == null) {
         return;
     }
     for (let i = 0; i < elements.length; i++) {
