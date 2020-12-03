@@ -1,3 +1,18 @@
+
+async function calculateSelected() {
+    iterationSelection({
+            calculatedFromText: true,
+            whiteList: ['Java', 'JavaScript']
+        },
+        {
+            'STICKER': stickerProcessor,
+            'CARD': cardProcessor
+        }, function (calcResult) {
+            console.log('Result: ', calcResult)
+            showResults(calcResult)
+        });
+}
+
 function showResults(results) {
     //clear()
 
@@ -47,3 +62,6 @@ function createStatTable(title, emptyText, data) {
     return statView
 }
 
+miro.onReady(() => {
+    calculateSelected()
+})
