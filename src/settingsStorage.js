@@ -88,7 +88,7 @@
             case 'string':
                 return settingValue;
             case 'list':
-                return settingValue.join();
+                return settingValue === null ? null : settingValue.join();
             default:
                 console.log('Unknown type', valueType);
         }
