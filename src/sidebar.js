@@ -77,4 +77,8 @@ function createStatTable(title, emptyText, data) {
 
 miro.onReady(() => {
     calculateSelected()
+
+    miro.addListener('SELECTION_UPDATED', widget => {
+        calculateSelected()
+    })
 })
