@@ -14,6 +14,7 @@ async function calculateSelected() {
 function showResults(results) {
     //clear()
     let title = results.unitOfMeasure + ' in selection';
+    clearResults();
     getContainer().appendChild(createStatTable(title, 'Looks like the selection is empty.', results))
 }
 
