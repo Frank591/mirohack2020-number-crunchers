@@ -15,8 +15,8 @@ async function calculateSelected() {
 
 function showResults(results) {
     //clear()
-
-    getContainer().appendChild(createStatTable('by Type', 'Looks like the selection is empty.', results))
+    let title = results.unitOfMeasure + ' in selection';
+    getContainer().appendChild(createStatTable(title, 'Looks like the selection is empty.', results))
 }
 
 function clear() {
@@ -65,7 +65,7 @@ function createStatTable(title, emptyText, data) {
             itemView.className = 'stat-list__item'
             itemView.innerHTML =
                 `<span class="stat-list__item-name">${data.unitOfMeasure}(${propertyName})</span>` +
-                `<span class="stat-list__item-value">${data.unitOfMeasure}(${data.groupedResult[propertyName]})</span>`
+                `<span class="stat-list__item-value">${data.groupedResult[propertyName]}</span>`
             statView.appendChild(itemView)
         }
     }
