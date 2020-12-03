@@ -59,14 +59,14 @@ function createStatTable(title, emptyText, data) {
             `<span class="stat-list__item-value">${data.totalResult}</span>`
         statView.appendChild(totalView)
 
-     /*   data.forEach((value, key) => {
+        data.groupedResult.forEach((value, key) => {
             let itemView = document.createElement('div')
             itemView.className = 'stat-list__item'
             itemView.innerHTML =
                 `<span class="stat-list__item-name">${key.toLowerCase()}</span>` +
                 `<span class="stat-list__item-value">${value}</span>`
             statView.appendChild(itemView)
-        })*/
+        })
     }
     return statView
 }
