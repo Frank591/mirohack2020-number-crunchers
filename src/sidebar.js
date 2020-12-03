@@ -55,7 +55,7 @@ function createStatTable(title, emptyText, data) {
         let totalView = document.createElement('div')
         totalView.className = 'stat-list__item'
         totalView.innerHTML =
-            `<span class="stat-list__item-name">Total amount</span>` +
+            `<span class="stat-list__item-name">${data.unitOfMeasure}(total amount)</span>` +
             `<span class="stat-list__item-value">${data.totalResult}</span>`
         statView.appendChild(totalView)
 
@@ -64,19 +64,10 @@ function createStatTable(title, emptyText, data) {
             let itemView = document.createElement('div')
             itemView.className = 'stat-list__item'
             itemView.innerHTML =
-                `<span class="stat-list__item-name">${propertyName}</span>` +
-                `<span class="stat-list__item-value">${data.groupedResult[propertyName]}</span>`
+                `<span class="stat-list__item-name">${data.unitOfMeasure}(${propertyName})</span>` +
+                `<span class="stat-list__item-value">${data.unitOfMeasure}(${data.groupedResult[propertyName]})</span>`
             statView.appendChild(itemView)
         }
-
-      /*  data.groupedResult.forEach((value, key) => {
-            let itemView = document.createElement('div')
-            itemView.className = 'stat-list__item'
-            itemView.innerHTML =
-                `<span class="stat-list__item-name">${key.toLowerCase()}</span>` +
-                `<span class="stat-list__item-value">${value}</span>`
-            statView.appendChild(itemView)
-        })*/
     }
     return statView
 }
