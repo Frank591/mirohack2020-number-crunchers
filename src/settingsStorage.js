@@ -5,7 +5,8 @@
     }
 
     var defaultSettings = {
-        calculatedFromText: true
+        calculatedFromText: true,
+        unitOfMeasure: 'SP'
     }
 
     var settingList = {
