@@ -35,6 +35,38 @@ function displayOptions(settings) {
     }
 }
 
+function saveOptions() {
+    var newSettings = {};
+    var settingList = spSettingsStorage.getSettingList();
+    for (var setting in settingList) {
+        var valueType = settingList[setting].type;
+        var settingElement = document.getElementById(setting);
+        var newValue = null;
+        switch (valueType) {
+            case 'boolean':
+                newValue = settingElement.checked;
+                break;
+            case 'string':
+                newValue = settingElement.value;
+                break;
+            case 'list':
+                newValue = settingElement.value;
+                if (newValue !== null && typeof newValue !== 'undefined') {
+                    newValue = newValue.split(',');
+                }
+                break;
+            default:
+                console.log('Unknown setting type ', valueType)
+        }
+        if (newValue !== null && typeof newValue !== 'undefined') {
+            newSettings[setting] = newValue;
+        }
+    }
+    spSettingsStorage.set(newSettings).then(function() {
+        console.log('Settings were changed');
+    });
+}
+
 function showResults(results) {
     //clear()
     let title = results.unitOfMeasure + ' in selection';
