@@ -10,6 +10,7 @@ miro.onReady(() => {
                 onClick: async () => {
                     const authorized = await miro.isAuthorized()
                     if (authorized) {
+                        miro.board.ui.openLeftSidebar('sidebar.html');
                         calculateSelected()
                     }
                     else {
@@ -34,6 +35,7 @@ async function calculateSelected() {
             'STICKER': stickerProcessor,
             'CARD': cardProcessor
         }, function (calcResult) {
-            console.log('Result: ', calcResult)
+                console.log('Result: ', calcResult)
+                showResults(calcResult)
         });
 }
