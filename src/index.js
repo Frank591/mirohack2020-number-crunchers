@@ -10,7 +10,7 @@ miro.onReady(() => {
                 onClick: async () => {
                     const authorized = await miro.isAuthorized()
                     if (authorized) {
-                        miro.board.ui.openLeftSidebar('/sidebar.html');
+                        miro.board.ui.openLeftSidebar('mirohack2020-number-crunchers/sidebar.html');
                         calculateSelected()
                     }
                     else {
