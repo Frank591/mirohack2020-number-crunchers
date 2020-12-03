@@ -10,7 +10,7 @@ miro.onReady(() => {
                 onClick: async () => {
                     const authorized = await miro.isAuthorized()
                     if (authorized) {
-                        calculateSelected()
+                        miro.board.ui.openLeftSidebar('mirohack2020-number-crunchers/sidebar.html');
                     }
                     else {
                         miro.board.ui.openModal('/mirohack2020-number-crunchers/not-authorized.html').then((res) => {
@@ -24,16 +24,3 @@ miro.onReady(() => {
         },
     })
 })
-
-async function calculateSelected() {
-    iterationSelection({
-            calculatedFromText: true,
-            whiteList: ['Java', 'JavaScript']
-        },
-        {
-            'STICKER': stickerProcessor,
-            'CARD': cardProcessor
-        }, function (calcResult) {
-            console.log('Result: ', calcResult)
-        });
-}
