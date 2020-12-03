@@ -13,7 +13,7 @@ miro.onReady(() => {
                         calculateSelected()
                     }
                     else {
-                        miro.board.ui.openModal('not-authorized.html').then((res) => {
+                        miro.board.ui.openModal('/mirohack2020-number-crunchers/not-authorized.html').then((res) => {
                             if (res === 'success') {
                                 calculateSelected()
                             }
