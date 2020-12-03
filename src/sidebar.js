@@ -21,6 +21,8 @@ function displayOptions(settings) {
         var settingElement = document.getElementById(setting);
         switch (valueType) {
             case 'boolean':
+                settingElement.checked = settings[setting];
+                break;
             case 'string':
                 settingElement.value = settings[setting];
                 break;
