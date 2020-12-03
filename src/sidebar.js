@@ -1,13 +1,14 @@
 async function calculateSelected() {
-    var settings = spSettingsStorage.get();
-    iterationSelection(settings,
-        {
-            'STICKER': stickerProcessor,
-            'CARD': cardProcessor
-        }, function (calcResult) {
-            console.log('Result: ', calcResult)
-            showResults(calcResult)
-        });
+    spSettingsStorage.get().then(async function(settings) {
+        iterationSelection(settings,
+            {
+                'STICKER': stickerProcessor,
+                'CARD': cardProcessor
+            }, function (calcResult) {
+                console.log('Result: ', calcResult)
+                showResults(calcResult)
+            });
+    });
 }
 
 function showResults(results) {
