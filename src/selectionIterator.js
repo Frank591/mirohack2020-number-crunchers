@@ -10,8 +10,9 @@ function getWidgetText(rawText) {
 
 function getNumbersFromWidgetText(widget, tags, settings) {
     var widgetText = getWidgetText(defValue(widget.text, widget.title));
+    var widgetAmount = Number(widgetText);
     return {
-        amounts: [Number(widgetText)],
+        amounts: [defValue(widgetAmount, 0)],
         tagUsed: []
     };
 }
