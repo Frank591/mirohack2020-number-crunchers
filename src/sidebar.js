@@ -19,7 +19,7 @@ function showResults(results) {
     getContainer().appendChild(createStatTable(title, 'Looks like the selection is empty.', results))
 }
 
-function clear() {
+function clearResults() {
     alert("start");
     const elements = getContainer().getElementsByClassName('stat-list__table')
     for (let i = 0; i < elements.length; i++) {
