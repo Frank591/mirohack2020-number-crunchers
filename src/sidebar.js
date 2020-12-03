@@ -45,12 +45,20 @@ function createStatTable(title, emptyText, data) {
         emptyView.innerText = emptyText
         statView.appendChild(emptyView)
     } else {
+        let totalValuableWidgetsView = document.createElement('div')
+        totalValuableWidgetsView.className = 'stat-list__item'
+        totalValuableWidgetsView.innerHTML =
+            `<span class="stat-list__item-name">Valuable widgets count</span>` +
+            `<span class="stat-list__item-value">${data.processedWidgets}</span>`
+        statView.appendChild(totalValuableWidgetsView)
+
         let totalView = document.createElement('div')
         totalView.className = 'stat-list__item'
         totalView.innerHTML =
             `<span class="stat-list__item-name">Total amount</span>` +
             `<span class="stat-list__item-value">${data.totalResult}</span>`
         statView.appendChild(totalView)
+
      /*   data.forEach((value, key) => {
             let itemView = document.createElement('div')
             itemView.className = 'stat-list__item'
