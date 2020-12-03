@@ -118,7 +118,6 @@ function iterationSelection(settings, widgetProcessors, resultProcessor) {
             if (typeof curWidgetProcessor !== 'undefined') {
                 var tags = currentWidget.tags;
                 resultPromises.push(curWidgetProcessor(currentWidget, tags, processResult, settings));
-                processResult.processedWidgets++;
             }
         }
         Promise.all(resultPromises).then(function () {
@@ -159,6 +158,9 @@ function groupValueProcessor(result, amount, settings, tagName, tagCount) {
 function stickerProcessor(widget, tags, result, settings) {
     return calcWidgetCosts(widget, tags, settings, getNumbersParser(settings))
         .then(function (widgetCost) {
+            if (widgetCost.amount !== 0) {
+                result.processedWidgets++;
+            }
             result.totalResult += widgetCost.amount;
             var tagCount = widgetCost.tags.length;
             if (tagCount > 0) {
