@@ -1,9 +1,6 @@
-
 async function calculateSelected() {
-    iterationSelection({
-            calculatedFromText: true,
-            whiteList: ['Java', 'JavaScript']
-        },
+    var settings = spSettingsStorage.get();
+    iterationSelection(settings,
         {
             'STICKER': stickerProcessor,
             'CARD': cardProcessor
