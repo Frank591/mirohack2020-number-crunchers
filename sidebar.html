@@ -11,10 +11,15 @@
 <body>
 <div class="sidebar__content">
     <div id="stat-container" class="stat-list">
+        <div class="stat-list__header">Counting options</div>
+        <div>
+            <div><input id="calculatedFromText" type="checkbox"><label for="calculatedFromText">Calculate from text widgets</label> </div>
+            <div><label for="whiteList">Tags white list</label> <input id="whiteList"></div>
+            <div><label for="regExp">Tag value RegExp</label> <input id="regExp"></div>
+        </div>
         <div class="stat-list__header">Counting results</div>
         <div>
             <button class="miro-btn miro-btn--primary miro-btn--small" onclick="calculateSelected()">Recalc</button>
-            <button class="miro-btn miro-btn--secondary miro-btn--small" onclick="clearResults()">Clear</button>
         </div>
     </div>
 </div>
