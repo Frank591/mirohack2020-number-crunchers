@@ -100,7 +100,8 @@ function calcWidgetCosts(widget, tags, settings, numbersParser) {
 function iterationSelection(settings, widgetProcessors, resultProcessor) {
     var result = {
         totalResult: 0,
-        groupedResult: {}
+        groupedResult: {},
+        processedWidgets: 0
     };
 
     var selectionPromise = miro.board.selection.get();
@@ -114,6 +115,7 @@ function iterationSelection(settings, widgetProcessors, resultProcessor) {
             if (typeof curWidgetProcessor !== 'undefined') {
                 var tags = currentWidget.tags;
                 resultPromises.push(curWidgetProcessor(currentWidget, tags, processResult, settings));
+                processResult.processedWidgets++;
             }
         }
         Promise.all(resultPromises).then(function () {
