@@ -11,8 +11,11 @@ function getWidgetText(rawText) {
 function getNumbersFromWidgetText(widget, tags, settings) {
     var widgetText = getWidgetText(defValue(widget.text, widget.title));
     var widgetAmount = Number(widgetText);
+    if (isNaN(widgetAmount)) {
+        widgetAmount = 0;
+    }
     return {
-        amounts: [defValue(widgetAmount, 0)],
+        amounts: [widgetAmount],
         tagUsed: []
     };
 }
