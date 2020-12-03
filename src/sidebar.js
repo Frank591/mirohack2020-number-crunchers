@@ -1,5 +1,8 @@
-async function calculateSelected() {
+async function calculateSelected(needDisplayOptions) {
     spSettingsStorage.get().then(async function(settings) {
+        if (needDisplayOptions) {
+            displayOptions(settings);
+        }
         iterationSelection(settings,
             {
                 'STICKER': stickerProcessor,
@@ -9,6 +12,27 @@ async function calculateSelected() {
                 showResults(calcResult)
             });
     });
+}
+
+function displayOptions(settings) {
+    var settingList = spSettingsStorage.getSettingList();
+    for (var setting in settings) {
+        var valueType = settingList[setting].type;
+        var settingElement = document.getElementById(setting);
+        switch (valueType) {
+            case 'boolean':
+                settingElement.checked = 'true' === settings[setting];
+                break;
+            case 'string':
+                settingElement.value = settings[setting];
+                break;
+            case 'list':
+                settingElement.value = settings[setting].join();
+                break;
+            default:
+                console.log('Unknown setting type ', valueType)
+        }
+    }
 }
 
 function showResults(results) {
@@ -74,11 +98,11 @@ function createStatTable(title, emptyText, data) {
 }
 
 miro.onReady(() => {
-    calculateSelected()
+    calculateSelected(true)
 
     miro.addListener('SELECTION_UPDATED', selection => {
         if (selection.data.length > 0) {
-            calculateSelected()
+            calculateSelected(false)
         }
     })
 })
