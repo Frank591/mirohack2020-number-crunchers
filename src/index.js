@@ -7,19 +7,33 @@ miro.onReady(() => {
             bottomBar: {
                 title: 'Sp counter',
                 svgIcon: icon24,
-                onClick: () => {
-                    iterationSelection({
-                            calculatedFromText: true,
-                            whiteList: ['Java', 'JavaScript']
-                        },
-                        {
-                            'STICKER': stickerProcessor,
-                            'CARD': cardProcessor
-                        }, function (calcResult) {
-                            console.log('Result: ', calcResult)
-                        });
+                onClick: async () => {
+                    const authorized = await miro.isAuthorized()
+                    if (authorized) {
+                        calculateSelected()
+                    }
+                    else {
+                        miro.board.ui.openModal('not-authorized.html').then((res) => {
+                            if (res === 'success') {
+                                calculateSelected()
+                            }
+                        })
+                    }
                 },
             },
         },
     })
 })
+
+async function calculateSelected() {
+    iterationSelection({
+            calculatedFromText: true,
+            whiteList: ['Java', 'JavaScript']
+        },
+        {
+            'STICKER': stickerProcessor,
+            'CARD': cardProcessor
+        }, function (calcResult) {
+            console.log('Result: ', calcResult)
+        });
+}
