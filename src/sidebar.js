@@ -60,6 +60,8 @@ function saveOptions() {
         }
         if (newValue !== null && typeof newValue !== 'undefined' && '' + newValue !== "") {
             newSettings[setting] = newValue;
+        } else {
+            newSettings[setting] = null;
         }
     }
     spSettingsStorage.set(newSettings).then(function () {
