@@ -50,6 +50,7 @@ function createStatTable(title, emptyText, data) {
         totalView.innerHTML =
             `<span class="stat-list__item-name">Total amount</span>` +
             `<span class="stat-list__item-value">${data.totalResult}</span>`
+        statView.appendChild(totalView)
      /*   data.forEach((value, key) => {
             let itemView = document.createElement('div')
             itemView.className = 'stat-list__item'
