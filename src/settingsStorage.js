@@ -9,17 +9,21 @@
     }
 
     var settingList = {
-        'calculatedFromText': {
+        calculatedFromText: {
             type: 'boolean',
             title: 'Get number value from widget text'
         },
-        'whiteList': {
+        whiteList: {
             type: 'list',
             title: 'List of enabled non-numeric tags'
         },
-        'regExp': {
+        regExp: {
             type: 'string',
             title: 'Regular expression to get number from tag'
+        },
+        unitOfMeasure: {
+            type: 'string',
+            title: 'Name of unit of measure for numeric values'
         }
     };
 

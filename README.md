@@ -12,3 +12,4 @@ There are the following calculate options:
 | whiteList          |               | optional list of available non numeric tags for calculation |
 | distributedAmounts | false         | if true then amount will be distributed for all non numeric tags |
 | regExp             |               | regular expression used for getting number |
+| unitOfMeasure      | SP            | name of unit of measure for numeric values |
