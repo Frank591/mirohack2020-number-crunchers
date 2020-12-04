@@ -1,8 +1,12 @@
-# Story point calculation plugin
+# Miro plugin to calculate numbers from text/tags for stickers and cards 
+
+<a href="https://miro.com/oauth/authorize/?response_type=token&client_id=3074457352197060904&redirect_uri=https://miro.com">Direct installation link</a>
 
 ## Functions
 
 ## Calculate options
+
+
 
 There are the following calculate options:
 
