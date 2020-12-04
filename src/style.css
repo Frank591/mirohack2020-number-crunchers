@@ -99,7 +99,7 @@ select {
 }
 
 .stat-list__field {
-    padding: 8px;
+    padding: 4px 8px;
     white-space: nowrap;
 }
 
@@ -118,4 +118,5 @@ select {
     color: #666666;
     text-align: right;
     margin-top: 4px;
+    width: calc(100% - 4px);
 }
