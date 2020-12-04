@@ -25,6 +25,10 @@
         unitOfMeasure: {
             type: 'string',
             title: 'Name of unit of measure for numeric values'
+        },
+        distributedAmounts: {
+            type: 'boolean',
+            title: 'Distribute amounts for tags in single widget'
         }
     };
 
