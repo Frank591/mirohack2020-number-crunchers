@@ -111,3 +111,8 @@ select {
 .stat-list__field input[type="checkbox"] {
     width: initial;
 }
+
+.stat-list__tooltip {
+    font-size: 12px;
+    color: #666666;
+}

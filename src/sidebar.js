@@ -35,7 +35,7 @@ function displayOptions(settings) {
     }
 }
 
-function saveOptions() {
+function saveOptionsAndCalc() {
     var newSettings = {};
     var settingList = spSettingsStorage.getSettingList();
     for (var setting in settingList) {
@@ -136,8 +136,6 @@ miro.onReady(() => {
     calculateSelected(true)
 
     miro.addListener('SELECTION_UPDATED', selection => {
-        if (selection.data.length > 0) {
-            calculateSelected(false)
-        }
+        calculateSelected(false);
     })
 })

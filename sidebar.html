@@ -17,11 +17,23 @@
                 <input id="calculatedFromText" type="checkbox">
                 <label for="calculatedFromText">Calculate from widget text (otherwise from tags)</label>
             </div>
-            <div class="stat-list__field"><label for="whiteList">Tags white list</label> <input id="whiteList"></div>
-            <div class="stat-list__field"><label for="regExp">Tag value RegExp</label> <input id="regExp"></div>
-            <div class="stat-list__field"><label for="unitOfMeasure">Unit of measure</label> <input id="unitOfMeasure"></div>
             <div class="stat-list__field">
-                <button class="miro-btn miro-btn--primary miro-btn--small" onclick="saveOptions();">Apply and recalc</button>
+                <label for="whiteList">Tags white list</label>
+                <input id="whiteList">
+                <div class="stat-list__tooltip">List of non numeric tags for grouping</div>
+            </div>
+            <div class="stat-list__field">
+                <label for="regExp">Tag value RegExp</label>
+                <input id="regExp">
+                <div class="stat-list__tooltip">Regular expression for numeric value in tags</div>
+            </div>
+            <div class="stat-list__field">
+                <label for="unitOfMeasure">Unit of measure</label>
+                <input id="unitOfMeasure">
+                <div class="stat-list__tooltip">Displaying unit of measure</div>
+            </div>
+            <div class="stat-list__field">
+                <button class="miro-btn miro-btn--primary miro-btn--small" onclick="saveOptionsAndCalc();">Apply and recalc</button>
             </div>
         </div>
         <div class="stat-list__header">Counting results</div>
