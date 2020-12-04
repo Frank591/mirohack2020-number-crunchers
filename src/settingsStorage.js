@@ -89,7 +89,8 @@
         }
         var rawList = text.split(',');
         var finalList = [];
-        for (var rawItem in rawList) {
+        for (var itemNo in rawList) {
+            var rawItem = rawList[itemNo];
             if (defValue(rawItem, null) !== null) {
                 finalList.push(rawItem.trim());
             }
