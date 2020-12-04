@@ -20,6 +20,28 @@ function getNumbersFromWidgetText(widget, tags, settings) {
     };
 }
 
+function getNumbersFromWidgetTextWithRegExp(widget, tags, settings) {
+    var widgetText = getWidgetText(defValue(widget.text, widget.title));
+    var regExp = settings.regExp;
+    var pattern = new RegExp(regExp);
+    var matchResult = pattern.exec(widgetText);
+    var widgetAmount;
+    if (defValue(matchResult, null) !== null) {
+        var curResult = Number(matchResult[matchResult.length - 1]);
+        if (!isNaN(curResult)) {
+            widgetAmount = curResult;
+        } else {
+            widgetAmount = 0;
+        }
+    } else {
+        widgetAmount = 0;
+    }
+    return {
+        amounts: [widgetAmount],
+        tagUsed: []
+    };
+}
+
 function getNumbersFromTags(widget, tags, settings) {
     var amounts = [], tagUsed = [];
     for (var tagNo in tags) {
@@ -131,7 +153,11 @@ function iterationSelection(settings, widgetProcessors, resultProcessor) {
 function getNumbersParser(settings) {
     var parser = null;
     if (defValue(settings.calculatedFromText, false)) {
-        parser = getNumbersFromWidgetText;
+        if (defValue(settings.regExp, null) !== null) {
+            parser = getNumbersFromWidgetTextWithRegExp;
+        } else {
+            parser = getNumbersFromWidgetText;
+        }
     } else if (defValue(settings.regExp, null) !== null) {
         parser = getNumbersFromTagsWithRegExp;
     } else {

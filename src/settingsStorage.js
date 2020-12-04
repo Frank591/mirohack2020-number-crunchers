@@ -20,7 +20,7 @@
         },
         regExp: {
             type: 'string',
-            title: 'Regular expression to get number from tag'
+            title: 'Regular expression for numeric values'
         },
         unitOfMeasure: {
             type: 'string',
