@@ -5,7 +5,8 @@
     }
 
     var defaultSettings = {
-        calculatedFromText: true
+        calculatedFromText: true,
+        unitOfMeasure: 'SP'
     }
 
     var settingList = {
@@ -19,11 +20,15 @@
         },
         regExp: {
             type: 'string',
-            title: 'Regular expression to get number from tag'
+            title: 'Regular expression for numeric values'
         },
         unitOfMeasure: {
             type: 'string',
             title: 'Name of unit of measure for numeric values'
+        },
+        distributedAmounts: {
+            type: 'boolean',
+            title: 'Distribute amounts for tags in single widget'
         }
     };
 
@@ -72,10 +77,25 @@
             case 'string':
                 return rawValue;
             case 'list':
-                return rawValue.split(',');
+                return this._getArrayFromString(rawValue);
             default:
                 console.log('Unknown type', valueType);
         }
+    };
+
+    SettingsStorage.prototype._getArrayFromString = function(text) {
+        if (defValue(text, null) === null) {
+            return null;
+        }
+        var rawList = text.split(',');
+        var finalList = [];
+        for (var itemNo in rawList) {
+            var rawItem = rawList[itemNo];
+            if (defValue(rawItem, null) !== null) {
+                finalList.push(rawItem.trim());
+            }
+        }
+        return finalList;
     };
 
     SettingsStorage.prototype._getSavingValue = function(setting, settingValue) {
@@ -87,7 +107,7 @@
             case 'string':
                 return settingValue;
             case 'list':
-                return settingValue.join();
+                return settingValue === null ? null : settingValue.join();
             default:
                 console.log('Unknown type', valueType);
         }

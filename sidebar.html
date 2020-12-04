@@ -4,17 +4,41 @@
     <link rel="stylesheet" href="src/style.css" />
     <link rel="stylesheet" href="https://miro.com/app/static/styles.1.0.css"/>
     <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script src="src/settingsStorage.js"></script>
     <script src="src/selectionIterator.js"></script>
     <script src="src/sidebar.js"></script>
 </head>
 <body>
 <div class="sidebar__content">
     <div id="stat-container" class="stat-list">
-        <div class="stat-list__header">Counting results</div>
+        <div class="stat-list__header">Counting options</div>
         <div>
-            <button class="miro-btn miro-btn--primary miro-btn--small" onclick="calculateSelected()">Recalc</button>
-            <button class="miro-btn miro-btn--secondary miro-btn--small" onclick="clearResults()">Clear</button>
+            <div class="stat-list__field">
+                <input id="calculatedFromText" type="checkbox">
+                <label for="calculatedFromText">Calculate from widget text (otherwise from tags)</label>
+                <div class="stat-list__tooltip">If checked then get number from widget text<br>else from numeric tags</div>
+            </div>
+            <div class="stat-list__field stat-list__field_right">
+                <label for="whiteList">Tags white list</label>
+                <input id="whiteList">
+                <div class="stat-list__tooltip">List of non numeric tags for grouping</div>
+                <button id="getAllTags" class="miro-btn miro-btn--primary miro-btn--small">Get all tags</button>
+            </div>
+            <div class="stat-list__field">
+                <label for="regExp">Regular expression</label>
+                <input id="regExp">
+                <div class="stat-list__tooltip">Regular expression for numeric values</div>
+            </div>
+            <div class="stat-list__field">
+                <label for="unitOfMeasure">Unit of measure</label>
+                <input id="unitOfMeasure">
+                <div class="stat-list__tooltip">Displaying unit of measure</div>
+            </div>
+            <div class="stat-list__field">
+                <button class="miro-btn miro-btn--primary miro-btn--small" onclick="saveOptionsAndCalc();">Apply and recalc</button>
+            </div>
         </div>
+        <div class="stat-list__header">Counting results</div>
     </div>
 </div>
 

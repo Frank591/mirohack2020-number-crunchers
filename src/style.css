@@ -97,3 +97,27 @@ select {
 .stat-list .stat-list__item .stat-list__item-value {
     float: right;
 }
+
+.stat-list__field {
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+.stat-list__field label, .stat-list__field input {
+    width: calc(50% - 2px);
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.stat-list__field input[type="checkbox"] {
+    width: initial;
+}
+
+.stat-list__tooltip {
+    font-size: 12px;
+    color: #666666;
+    text-align: right;
+    margin-top: 4px;
+    width: calc(100% - 4px);
+    white-space: normal;
+}
