@@ -158,10 +158,12 @@ function getNumbersParser(settings) {
         } else {
             parser = getNumbersFromWidgetText;
         }
-    } else if (defValue(settings.regExp, null) !== null) {
-        parser = getNumbersFromTagsWithRegExp;
     } else {
-        parser = getNumbersFromTags;
+        if (defValue(settings.regExp, null) !== null) {
+            parser = getNumbersFromTagsWithRegExp;
+        } else {
+            parser = getNumbersFromTags;
+        }
     }
     return new Promise(function (resolve, reject) {
         if (parser !== null) {
