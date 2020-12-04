@@ -119,4 +119,5 @@ select {
     text-align: right;
     margin-top: 4px;
     width: calc(100% - 4px);
+    white-space: normal;
 }
