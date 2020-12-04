@@ -41,6 +41,9 @@ function saveOptionsAndCalc() {
     for (var setting in settingList) {
         var valueType = settingList[setting].type;
         var settingElement = document.getElementById(setting);
+        if (settingElement === null) {
+            continue;
+        }
         var newValue = null;
         switch (valueType) {
             case 'boolean':
