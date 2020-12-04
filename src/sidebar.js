@@ -19,6 +19,9 @@ function displayOptions(settings) {
     for (var setting in settings) {
         var valueType = settingList[setting].type;
         var settingElement = document.getElementById(setting);
+        if (settingElement === null) {
+            continue;
+        }
         switch (valueType) {
             case 'boolean':
                 settingElement.checked = settings[setting];
