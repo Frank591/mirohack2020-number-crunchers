@@ -100,10 +100,11 @@ select {
 
 .stat-list__field {
     padding: 8px;
+    white-space: nowrap;
 }
 
 .stat-list__field label, .stat-list__field input {
-    width: calc(50% - 16px);
+    width: calc(50% - 2px);
     display: inline-block;
     white-space: nowrap;
 }
@@ -115,4 +116,6 @@ select {
 .stat-list__tooltip {
     font-size: 12px;
     color: #666666;
+    text-align: right;
+    margin-top: 4px;
 }
