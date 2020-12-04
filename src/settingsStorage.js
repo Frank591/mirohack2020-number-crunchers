@@ -77,10 +77,24 @@
             case 'string':
                 return rawValue;
             case 'list':
-                return rawValue.split(',');
+                return this._getArrayFromString(rawValue);
             default:
                 console.log('Unknown type', valueType);
         }
+    };
+
+    SettingsStorage.prototype._getArrayFromString = function(text) {
+        if (defValue(text, null) === null) {
+            return null;
+        }
+        var rawList = text.split(',');
+        var finalList = [];
+        for (var rawItem in rawList) {
+            if (defValue(rawItem, null) !== null) {
+                finalList.push(rawItem.trim());
+            }
+        }
+        return finalList;
     };
 
     SettingsStorage.prototype._getSavingValue = function(setting, settingValue) {

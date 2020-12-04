@@ -138,10 +138,30 @@ function createStatTable(title, emptyText, data) {
     return statView
 }
 
+async function fillWhiteListWithAllTags() {
+    var allTags = await miro.board.tags.get();
+    var newWhiteList = [];
+    for (var tagNo in allTags) {
+        var tagTitle = allTags[tagNo].title;
+        var tagNumber = Number(tagTitle);
+        if (isNaN(tagNumber)) {
+            newWhiteList.push(tagTitle);
+        }
+    }
+    document.getElementById('whiteList').value = newWhiteList.join();
+}
+
 miro.onReady(() => {
     calculateSelected(true)
 
     miro.addListener('SELECTION_UPDATED', selection => {
         calculateSelected(false);
-    })
+    });
+
+    var getAllTags = document.getElementById('getAllTags');
+    if (getAllTags !== null) {
+        getAllTags.onclick = function() {
+            fillWhiteListWithAllTags();
+        }
+    }
 })
